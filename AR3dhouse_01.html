@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Model Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ar.js@3.3.2/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+        <a-marker preset="hiro">
+            <a-entity id="model" position="0 0 0" scale="0.1 0.1 0.1"></a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        // URL du fichier GLB sur Google Drive
+        const modelUrl = 'https://drive.google.com/uc?export=download&id=1hmwmPir65eVTFwiqJ9oqMfXoFXBARUUZ';
+
+        // Charger le modèle GLB
+        const loader = new THREE.GLTFLoader();
+        loader.load(modelUrl, function(gltf) {
+            const model = gltf.scene;
+            document.querySelector('#model').setObject3D('mesh', model);
+        }, undefined, function(error) {
+            console.error(error);
+        });
+    </script>
+</body>
+</html>
